@@ -18,8 +18,8 @@ import pprint
 import argparse, sys
 
 parser=argparse.ArgumentParser()
-parser.add_argument('--a', help='Enter the a bit string for the function ax(xor)b you want to run with')
-parser.add_argument('--b', help='Enter the b sibgle bit for the function ax(xor)b you want to run with')
+parser.add_argument('a', help='Enter the a bit string for the function ax(xor)b you want to run with')
+parser.add_argument('b', help='Enter the b sibgle bit for the function ax(xor)b you want to run with')
 
 
 # In[3]:

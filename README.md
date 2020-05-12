@@ -17,6 +17,10 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
+Example:
+
+`python Bernstein-Vazirani.py 101 1`
+
 ## Deutsch-Jozsa
 ```
 usage: Deutsch-Jozsa.py [-h] bits algo
@@ -28,6 +32,12 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
+
+Examples:
+
+`python Deutsch-Jozsa.py 3 balanced`
+
+`python Deutsch-Jozsa.py 3 const`
 
 ## Simon's
 ```
@@ -59,4 +69,10 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
+
+Examples:
+
+`python Grover.py 101 valid`
+
+`python Grover.py 101 invalid`
 
