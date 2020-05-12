@@ -48,7 +48,6 @@ class Grover(object):
     def _init_(self):        
         self.n_qubits = None
         self.qubits = None
-        self.grover_circuit = None
         self.bit_map = None
         self.num_iter = None
             
@@ -62,10 +61,10 @@ class Grover(object):
         n_bits = len(list(bit.keys())[0])
         oracle_matrix = np.zeros(shape=(2 ** n_bits, 2 ** n_bits))
         for b in range(2 ** n_bits):
-            pad_str = np.binary_repr(b, n_bits)
-            phase_factor = bit[pad_str]
-            if phase_factor == '0': phase_factor = '-1'
-            oracle_matrix[b, b] = phase_factor
+            bin_str = np.binary_repr(b, n_bits)
+            fill_value = bit[bin_str]
+            if fill_value == '0': fill_value = '-1'
+            oracle_matrix[b, b] = fill_value
         return oracle_matrix
     
     def _grover_diffusion_op(self):

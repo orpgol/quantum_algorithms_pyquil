@@ -43,17 +43,15 @@ class Bernstein_Vazirani(object):
         self.n_helper = 1
         self.qubits = None
         self.helper = None
-        self.bv_circuit = None
-        self.solution = None
         self.n_trials = None
 
     def _create_oracle(self, bit):
         oracle = np.zeros(shape=(2 ** (self.n_qubits + 1), 2 ** (self.n_qubits + 1)))
 
         for b in range(2**self.n_helper):
-            pad_str = np.binary_repr(b, width=self.n_qubits)
+            bin_str = np.binary_repr(b, width=self.n_qubits)
             for k, v in bit.items():
-                i, j = int(pad_str+k, 2), int(np.binary_repr(xor(int(pad_str, 2),
+                i, j = int(bin_str+k, 2), int(np.binary_repr(xor(int(bin_str, 2),
                                                                  int(v, 2)), self.n_qubits) + k, 2)
                 oracle[i, j] = 1
         return oracle
