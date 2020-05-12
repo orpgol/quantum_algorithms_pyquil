@@ -18,8 +18,8 @@ import pprint
 
 import argparse, sys
 parser=argparse.ArgumentParser()
-parser.add_argument('--bits', help='Enter the number of bits you want to run with')
-parser.add_argument('--algo', help='Enter balanced for balanced or const for constant function')
+parser.add_argument('bits', help='Enter the number of bits you want to run with')
+parser.add_argument('algo', help='Enter balanced for balanced or const for constant function')
 
 
 # In[14]:

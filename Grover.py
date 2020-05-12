@@ -18,8 +18,8 @@ import pprint
 import argparse, sys
 
 parser=argparse.ArgumentParser()
-parser.add_argument('--bit', help='Enter the bit string for your function to search for')
-parser.add_argument('--valid', help='Enter valid for valid grover mapping or invalid for no string returning 1')
+parser.add_argument('bit', help='Enter the bit string for your function to search for')
+parser.add_argument('valid', help='Enter valid for valid grover mapping or invalid for no string returning 1')
 
 
 # In[5]:
