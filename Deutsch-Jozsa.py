@@ -24,7 +24,7 @@ parser.add_argument('algo', help='Enter balanced for balanced or const for const
 
 # In[14]:
 
-
+## Class representation of DJ algorithm
 class Deutsch_Jozsa(object):
     def _init_(self):
         self.n_qubits = None
@@ -33,7 +33,8 @@ class Deutsch_Jozsa(object):
         self.helper = None
         self.const = None
         self.balanced = None
-
+        
+    ## Run initialization on parameters needed for the algorithm
     def _run_init(self, n):
         self.n_qubits = n
         self.n_helper = 1
@@ -41,14 +42,16 @@ class Deutsch_Jozsa(object):
         self.helper = self.n_qubits
 
         self.const, self.balanced = self._create_oracle()
-
+        
+    ## Create oracle based on arbitrary number of bits n
     def _create_oracle(self):
 
         p_const = [I(qubit) for qubit in self.qubits + [self.helper]]
         p_balanced = [Z(qubit) for qubit in self.qubits + [self.helper]]
 
         return p_const, p_balanced
-
+    
+    ## Start an algorithm run
     def run_dj(self, n, balanced = True):
         self._run_init(n)
         qvm = get_qc('9q-square-qvm')
@@ -73,7 +76,7 @@ class Deutsch_Jozsa(object):
 
 # In[15]:
 
-
+## Command line interface with our algotrithm
 if __name__ == '__main__':
     args=parser.parse_args()
 
