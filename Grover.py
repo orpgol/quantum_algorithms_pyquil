@@ -24,7 +24,7 @@ parser.add_argument('--valid', help='Enter valid for valid grover mapping or inv
 
 # In[5]:
 
-
+## Two functions to create a function represented as a bit map. One for the valid case where one string returns 1 and one for the invalid case where no string returns 1
 def create_grover_valid_bitmap(bit):
     n_bits = len(bit)
     bit_map = {}
@@ -44,6 +44,7 @@ def create_grover_invalid_bitmap(bit):
 
     return bit_map
 
+## Class represeting our Grover algorithm implementation
 class Grover(object):
     def _init_(self):        
         self.n_qubits = None
@@ -51,12 +52,14 @@ class Grover(object):
         self.bit_map = None
         self.num_iter = None
             
+    ## Inintializing the parameters needed for running the algorithm
     def _run_init(self, bit):
         self.bit_map = bit
         self.n_qubits = 2**len(list(bit.keys())[0])
         self.qubits = list(range(int(np.log2(self.n_qubits))))
         self.num_iter = int(round(np.pi * 2 ** (len(self.qubits) / 2.0 - 2.0)))
-
+        
+    ## Oracle creation algorithm. Matrix creation is based on phase factors.
     def _grover_oracle_matrix(self, bit):
         n_bits = len(list(bit.keys())[0])
         oracle_matrix = np.zeros(shape=(2 ** n_bits, 2 ** n_bits))
@@ -67,6 +70,7 @@ class Grover(object):
             oracle_matrix[b, b] = fill_value
         return oracle_matrix
     
+    ## Diffusion section creation. Returns a circuit for the diffusion part.
     def _grover_diffusion_op(self):
         diffusion_program = Program()
         dim = 2 ** len(self.qubits)
@@ -75,7 +79,8 @@ class Grover(object):
         instruction_tuple = ('diffusion',) + tuple(self.qubits)
         diffusion_program.inst(instruction_tuple)
         return diffusion_program
-        
+    
+    ## Exposed interfacer
     def grover_run(self, bit):
         self._run_init(bit)
     
@@ -104,7 +109,7 @@ class Grover(object):
 
 # In[6]:
 
-
+## Command line arguments parsing and interaction with algorithm
 if __name__ == '__main__':
     args=parser.parse_args()
     if args.valid == 'valid':
