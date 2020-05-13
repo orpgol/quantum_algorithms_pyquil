@@ -18,13 +18,13 @@ import pprint
 import argparse, sys
 
 parser=argparse.ArgumentParser()
-parser.add_argument('a', help='Enter the a bit string for the function ax(xor)b you want to run with')
-parser.add_argument('b', help='Enter the b sibgle bit for the function ax(xor)b you want to run with')
+parser.add_argument('--a', help='Enter the a bit string for the function ax(xor)b you want to run with')
+parser.add_argument('--b', help='Enter the b sibgle bit for the function ax(xor)b you want to run with')
 
 
 # In[3]:
 
-## Bit map creation based on 'n' number of qubits selectes by user
+
 def create_bv_bitmap(a, b):
     n_bits = len(a)
     bit_map = {}
@@ -36,7 +36,7 @@ def create_bv_bitmap(a, b):
 
     return bit_map
 
-## BV class representing the algorithm
+
 class Bernstein_Vazirani(object):
     def __init__(self):
         self.n_qubits = None
@@ -45,7 +45,6 @@ class Bernstein_Vazirani(object):
         self.helper = None
         self.n_trials = None
 
-    ## Oracle creation based on bit map representation
     def _create_oracle(self, bit):
         oracle = np.zeros(shape=(2 ** (self.n_qubits + 1), 2 ** (self.n_qubits + 1)))
 
@@ -56,19 +55,19 @@ class Bernstein_Vazirani(object):
                                                                  int(v, 2)), self.n_qubits) + k, 2)
                 oracle[i, j] = 1
         return oracle
-    ## Running initialization for required parameters
+    
     def _run_init(self, bit):
         self.n_qubits = len(list(bit.keys())[0])
         self.qubits = list(range(self.n_qubits))
         self.helper = self.n_qubits
         self.n_trials = 10
-    ## Start algorithm run
+
     def run_bv(self, bit):
         # initialize all attributes
         self._run_init(bit)
         qvm = get_qc('9q-square-qvm')
         
-        # To get an ephemeral oracle matrix
+        # To get a
         oracle = self._create_oracle(bit)
         a_circuit = Program()
         a_ro = a_circuit.declare('ro', 'BIT', len(self.qubits) + 1)
@@ -105,10 +104,24 @@ class Bernstein_Vazirani(object):
 
 # In[ ]:
 
-## Command line interface for running the algorithm
+
 if __name__ == '__main__':
     args=parser.parse_args()
     
+    ## Assert bit string
+    p = set(args.a)
+    o = set(args.b)
+    s = {'0','1'}
+    if s == p or p == {'0'} or p == {'1'}:
+    #     print('ok')
+        pass
+    else:
+        raise AssertionError("a must be a bit string")
+    if o == {'0'} or o == {'1'}:
+    #     print('ok')
+        pass
+    else:
+        raise AssertionError("b must be a bit")
     
     bit = create_bv_bitmap(args.a, args.b)
     with local_forest_runtime():
